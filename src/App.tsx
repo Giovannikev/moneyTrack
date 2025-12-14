@@ -1,11 +1,12 @@
-import './App.css'
+import "./App.css";
+import { ModeToggle } from "@/components/dark-mode/mode-toggle";
 
 function App() {
-	return (
-	<>
-		<p>ovy</p>
-	</>
-	)
+  return (
+    <>
+      <ModeToggle />
+    </>
+  );
 }
 
-export default App
+export default App;
