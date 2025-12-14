@@ -109,3 +109,33 @@ yarn build
 ```
 
 Ceci créera un dossier `dist` contenant les fichiers optimisés et minifiés de votre application.
+
+## Exécution avec Docker
+
+Pour exécuter l'application en utilisant Docker et Docker Compose, suivez ces étapes :
+
+### 1. Construire les images Docker
+
+À la racine du projet, exécutez la commande suivante pour construire l'image Docker de votre application. Cela compilera votre application et préparera l'image Nginx pour servir les fichiers statiques.
+
+```bash
+docker-compose build
+```
+
+### 2. Lancer les conteneurs Docker
+
+Une fois l'image construite, vous pouvez lancer les conteneurs en arrière-plan :
+
+```bash
+docker-compose up -d
+```
+
+L'application sera accessible via votre navigateur à l'adresse `http://localhost:3001` (selon la configuration de votre `docker-compose.yml`).
+
+### 3. Arrêter les conteneurs Docker
+
+Pour arrêter les conteneurs en cours d'exécution :
+
+```bash
+docker-compose down
+```
