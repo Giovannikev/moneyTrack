@@ -71,3 +71,41 @@ export default defineConfig([
   },
 ])
 ```
+
+## Initialisation de l'application
+
+Pour initialiser et lancer l'application, suivez les étapes ci-dessous :
+
+### 1. Installation des dépendances
+
+Assurez-vous d'avoir Node.js et npm (ou Yarn) installés sur votre machine. Ensuite, installez les dépendances du projet en exécutant la commande suivante à la racine du projet :
+
+```bash
+npm install
+# ou
+yarn install
+```
+
+### 2. Lancement du serveur de développement
+
+Une fois les dépendances installées, vous pouvez démarrer le serveur de développement. Cela lancera l'application en mode développement et ouvrira une instance locale dans votre navigateur.
+
+```bash
+npm run dev
+# ou
+yarn dev
+```
+
+L'application sera accessible à l'adresse `http://localhost:5173` (ou un port similaire si 5173 est déjà utilisé).
+
+### 3. Construction de l'application pour la production
+
+Pour construire l'application en vue d'un déploiement en production, utilisez la commande suivante :
+
+```bash
+npm run build
+# ou
+yarn build
+```
+
+Ceci créera un dossier `dist` contenant les fichiers optimisés et minifiés de votre application.

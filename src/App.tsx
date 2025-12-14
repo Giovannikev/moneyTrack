@@ -2,9 +2,9 @@ import './App.css'
 
 function App() {
 	return (
-		<>
-			<p>ovy</p>
-		</>
+	<>
+		<p>ovy</p>
+	</>
 	)
 }
 
