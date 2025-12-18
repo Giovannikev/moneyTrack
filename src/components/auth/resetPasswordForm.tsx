@@ -23,7 +23,7 @@ const INITIAL_FORM_STATE: ResetPasswordFormData = {
 
 export function ResetPasswordForm({ className, ...props }: React.ComponentProps<"div">) {
   const navigate = useNavigate()
-  const { formData, updateField, setFormData } = useFormInput(INITIAL_FORM_STATE)
+  const { formData, updateField } = useFormInput(INITIAL_FORM_STATE)
   const [isPasswordRecovery, setIsPasswordRecovery] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string>("")

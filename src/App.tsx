@@ -1,18 +1,21 @@
 import "./App.css";
-import SignupPage from "./pages/auth/signUp/page";
-import SignInPage from "./pages/auth/signIn/page";
+import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./hooks/useAuth";
 import { PrivateRoute } from "./components/auth/privateRoute";
-import ResetPasswordPage from "./pages/auth/resetPassword/page";
-import DashboardPage from "./pages/dashboard/page";
+
+const SignupPage = React.lazy(() => import("./pages/auth/signUp/page"));
+const SignInPage = React.lazy(() => import("./pages/auth/signIn/page"));
+const ResetPasswordPage = React.lazy(() => import("./pages/auth/resetPassword/page"));
+const DashboardPage = React.lazy(() => import("./pages/dashboard/page"));
 import { SectionCards } from "./components/dashboard/section-cards";
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
+        <Suspense fallback={<div>Chargement...</div>}>
+          <Routes>
           <Route path="/" element={<Navigate to="/signin" replace />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/signin" element={<SignInPage />} />
@@ -28,7 +31,8 @@ function App() {
             <Route index element={<SectionCards />} />
             <Route path="count" element={<div>Count Page</div>} />
           </Route>
-        </Routes>
+          </Routes>
+        </Suspense>
       </AuthProvider>
     </BrowserRouter>
   );

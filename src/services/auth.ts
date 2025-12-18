@@ -52,5 +52,5 @@ export const updateUserPassword = async (password: string): Promise<AuthResult> 
   const { data, error } = await supabase.auth.updateUser({
     password,
   })
-  return { data, error }
+  return { data: data as AuthResponse["data"], error }
 }

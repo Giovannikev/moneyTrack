@@ -2,7 +2,7 @@
 
 import { useState, type ChangeEvent } from "react"
 
-export const useFormInput = <T extends Record<string, string>>(initialState: T) => {
+export const useFormInput = <T extends object>(initialState: T) => {
   const [formData, setFormData] = useState<T>(initialState)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
