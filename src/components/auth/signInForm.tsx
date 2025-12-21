@@ -1,55 +1,68 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import { Link, useNavigate } from "react-router-dom"
-import { type FormEvent, useState } from "react"
-import { signIn } from "@/services/auth"
-import type { SignInFormData } from "@/types/auth.types"
-import { useFormInput } from "@/hooks/use-form-input"
-import { Loader } from "lucide-react"
-import { toast } from "sonner"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Link, useNavigate } from "react-router-dom";
+import { type FormEvent, useState } from "react";
+import { signIn } from "@/services/auth";
+import type { SignInFormData } from "@/types/auth.types";
+import { useFormInput } from "@/hooks/use-form-input";
+import { Loader } from "lucide-react";
+import { toast } from "sonner";
+import { ROUTES } from "@/constants/routes";
 
 const INITIAL_FORM_STATE: SignInFormData = {
   email: "",
   password: "",
-}
+};
 
-export function SignInForm({ className, ...props }: React.ComponentProps<"div">) {
-  const navigate = useNavigate()
-  const { formData, updateField } = useFormInput(INITIAL_FORM_STATE)
-  const [error, setError] = useState<string>("")
-  const [isLoading, setIsLoading] = useState(false)
+export function SignInForm({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  const navigate = useNavigate();
+  const { formData, updateField } = useFormInput(INITIAL_FORM_STATE);
+  const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setError("")
-    setIsLoading(true)
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
 
     try {
-      const { data, error: authError } = await signIn(formData.email, formData.password)
-
+      const { data, error: authError } = await signIn(
+        formData.email,
+        formData.password
+      );
       if (authError) {
-        setError(authError.message || "Une erreur est survenue lors de la connexion")
-        return
+        setError(
+          authError.message || "Une erreur est survenue lors de la connexion"
+        );
+        return;
       }
 
       if (data?.user) {
-        navigate("/dashboard")
+        navigate(ROUTES.DASHBOARD);
       }
-      toast.success("Connexion réussie")
+      toast.success("Connexion réussie");
     } catch (err) {
-      setError("Une erreur inattendue est survenue")
-      console.error("Sign in error:", err)
+      setError("Une erreur inattendue est survenue");
+      console.error("Sign in error:", err);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -58,13 +71,23 @@ export function SignInForm({ className, ...props }: React.ComponentProps<"div">)
           <form className="p-6 md:p-8" onSubmit={handleSubmit}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Connectez-vous à votre compte</h1>
+                <h1 className="text-2xl font-bold">
+                  Connectez-vous à votre compte
+                </h1>
                 <p className="text-balance text-sm text-muted-foreground">
                   Entrez votre e-mail et votre mot de passe pour vous connecter
                 </p>
               </div>
 
-              {error && <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
+              {error && (
+                <div
+                  className="rounded-md bg-destructive/10 p-3 text-sm text-destructive"
+                  role="alert"
+                  aria-live="assertive"
+                >
+                  {error}
+                </div>
+              )}
 
               <Field>
                 <FieldLabel htmlFor="email">E-mail</FieldLabel>
@@ -90,18 +113,22 @@ export function SignInForm({ className, ...props }: React.ComponentProps<"div">)
                   disabled={isLoading}
                 />
                 <FieldDescription className="text-right">
-                  <Link to="/reset-password">Mot de passe oublié ?</Link>
+                  <Link to={ROUTES.RESET_PASSWORD}>Mot de passe oublié ?</Link>
                 </FieldDescription>
               </Field>
 
               <Field>
-                <Button type="submit" disabled={isLoading}>
-                  {isLoading ? <Loader className="animate-spin"/> : "Se connecter"}
+                <Button type="submit" disabled={isLoading} aria-busy={isLoading}>
+                  {isLoading ? (
+                    <Loader className="animate-spin" />
+                  ) : (
+                    "Se connecter"
+                  )}
                 </Button>
               </Field>
 
               <FieldDescription className="text-center">
-                Pas de compte ? <Link to="/signup">S'inscrire</Link>
+                Pas de compte ? <Link to={ROUTES.SIGNUP}>S'inscrire</Link>
               </FieldDescription>
             </FieldGroup>
           </form>
@@ -115,9 +142,10 @@ export function SignInForm({ className, ...props }: React.ComponentProps<"div">)
         </CardContent>
       </Card>
       <FieldDescription className="px-6 text-center">
-        En cliquant sur continuer, vous acceptez nos <a href="#">Conditions d'utilisation</a> et notre{" "}
+        En cliquant sur continuer, vous acceptez nos{" "}
+        <a href="#">Conditions d'utilisation</a> et notre{" "}
         <a href="#">Politique de confidentialité</a>.
       </FieldDescription>
     </div>
-  )
+  );
 }

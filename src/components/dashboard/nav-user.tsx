@@ -9,6 +9,7 @@ import {
 } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { signOut } from "@/services/auth"
+import { ROUTES } from "@/constants/routes"
 
 import {
   Avatar,
@@ -47,7 +48,7 @@ export function NavUser({
     try {
       const { error } = await signOut()
       if (error) throw error
-      navigate("/signin")
+      navigate(ROUTES.SIGNIN)
     } catch (error) {
       console.error("Error signing out:", error)
       alert("Erreur lors de la déconnexion.")

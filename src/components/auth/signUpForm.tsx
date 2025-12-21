@@ -1,56 +1,73 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import { Link, useNavigate } from "react-router-dom"
-import { type FormEvent, useState } from "react"
-import { signUp } from "@/services/auth"
-import type { SignUpFormData } from "@/types/auth.types"
-import { useFormInput } from "@/hooks/use-form-input"
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Link, useNavigate } from "react-router-dom";
+import { type FormEvent, useState } from "react";
+import { signUp } from "@/services/auth";
+import type { SignUpFormData } from "@/types/auth.types";
+import { useFormInput } from "@/hooks/use-form-input";
+import { ROUTES } from "@/constants/routes";
 
 const INITIAL_FORM_STATE: SignUpFormData = {
   email: "",
   password: "",
   fullName: "",
-}
+};
 
-export function SignupForm({ className, ...props }: React.ComponentProps<"div">) {
-  const navigate = useNavigate()
-  const { formData, handleChange } = useFormInput(INITIAL_FORM_STATE)
-  const [error, setError] = useState<string>("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [successMessage, setSuccessMessage] = useState<string>("")
+export function SignupForm({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  const navigate = useNavigate();
+  const { formData, handleChange } = useFormInput(INITIAL_FORM_STATE);
+  const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string>("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setError("")
-    setSuccessMessage("")
-    setIsLoading(true)
+    e.preventDefault();
+    setError("");
+    setSuccessMessage("");
+    setIsLoading(true);
 
     try {
-      const { data, error: authError } = await signUp(formData.email, formData.password, formData.fullName)
+      const { data, error: authError } = await signUp(
+        formData.email,
+        formData.password,
+        formData.fullName
+      );
 
       if (authError) {
-        setError(authError.message || "Une erreur est survenue lors de l'inscription")
-        return
+        setError(
+          authError.message || "Une erreur est survenue lors de l'inscription"
+        );
+        return;
       }
 
       if (data?.user) {
-        setSuccessMessage("Veuillez vérifier votre email pour activer votre compte")
-        setTimeout(() => navigate("/signin"), 3000)
+        setSuccessMessage(
+          "Veuillez vérifier votre email pour activer votre compte"
+        );
+        setTimeout(() => navigate(ROUTES.SIGNIN), 3000);
       }
     } catch (err) {
-      setError("Une erreur inattendue est survenue")
-      console.error("Sign up error:", err)
+      setError("Une erreur inattendue est survenue");
+      console.error("Sign up error:", err);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -65,10 +82,24 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
                 </p>
               </div>
 
-              {error && <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">{error}</div>}
+              {error && (
+                <div
+                  className="rounded-md bg-destructive/10 p-3 text-sm text-destructive"
+                  role="alert"
+                  aria-live="assertive"
+                >
+                  {error}
+                </div>
+              )}
 
               {successMessage && (
-                <div className="rounded-md bg-green-500/10 p-3 text-sm text-green-600">{successMessage}</div>
+                <div
+                  className="rounded-md bg-green-500/10 p-3 text-sm text-green-600"
+                  role="status"
+                  aria-live="polite"
+                >
+                  {successMessage}
+                </div>
               )}
 
               <Field>
@@ -113,13 +144,14 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
               </Field>
 
               <Field>
-                <Button type="submit" disabled={isLoading}>
+                <Button type="submit" disabled={isLoading} aria-busy={isLoading}>
                   {isLoading ? "Création..." : "Créer un compte"}
                 </Button>
               </Field>
 
               <FieldDescription className="text-center">
-                Vous avez déjà un compte ? <Link to="/signin">Se connecter</Link>
+                Vous avez déjà un compte ?{" "}
+                <Link to={ROUTES.SIGNIN}>Se connecter</Link>
               </FieldDescription>
             </FieldGroup>
           </form>
@@ -133,9 +165,10 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"div">)
         </CardContent>
       </Card>
       <FieldDescription className="px-6 text-center">
-        En cliquant sur continuer, vous acceptez nos <a href="#">Conditions d'utilisation</a> et notre{" "}
+        En cliquant sur continuer, vous acceptez nos{" "}
+        <a href="#">Conditions d'utilisation</a> et notre{" "}
         <a href="#">Politique de confidentialité</a>.
       </FieldDescription>
     </div>
-  )
+  );
 }

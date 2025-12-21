@@ -4,6 +4,7 @@ import type { ReactNode } from "react"
 import { Navigate } from "react-router-dom"
 import { useAuth } from "@/hooks/useAuth"
 import { Loader } from "lucide-react"
+import { ROUTES } from "@/constants/routes"
 
 interface PrivateRouteProps {
   children: ReactNode
@@ -21,7 +22,7 @@ export const PrivateRoute = ({ children }: PrivateRouteProps) => {
   }
 
   if (!user) {
-    return <Navigate to="/signin" replace />
+    return <Navigate to={ROUTES.SIGNIN} replace />
   }
 
   return <>{children}</>

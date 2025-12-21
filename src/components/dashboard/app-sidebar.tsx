@@ -78,9 +78,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
+            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
               <a href="#">
-                <COMPANY_CONFIG.logo className="size-5!" />
+                <COMPANY_CONFIG.logo className="!size-5" />
                 <span className="text-base font-semibold">{COMPANY_CONFIG.name}</span>
               </a>
             </SidebarMenuButton>

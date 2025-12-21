@@ -16,4 +16,3 @@ export const getSupabaseClient = (): SupabaseClient => {
   return supabaseInstance
 }
 
-export default getSupabaseClient()
