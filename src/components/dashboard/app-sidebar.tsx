@@ -1,7 +1,8 @@
 "use client"
 
 import type * as React from "react"
-import { BarChart3, LayoutDashboard, Folder, Layers, List, Users, type LucideIcon } from "lucide-react"
+import { BarChart3, LayoutDashboard, Folder, Layers, List, Wallet, Settings, type LucideIcon } from "lucide-react"
+import { ROUTES } from "@/constants/routes"
 
 import { NavMain } from "@/components/dashboard/nav-main"
 import { NavUser } from "@/components/dashboard/nav-user"
@@ -41,34 +42,39 @@ const SIDEBAR_CONFIG: SidebarData = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: ROUTES.DASHBOARD,
       icon: LayoutDashboard,
     },
     {
-      title: "Lifecycle",
-      url: "#",
+      title: "Dépenses",
+      url: ROUTES.DASHBOARD_EXPENSES,
       icon: List,
     },
     {
-      title: "Analytics",
-      url: "#",
-      icon: BarChart3,
+      title: "Budgets",
+      url: ROUTES.DASHBOARD_BUDGETS,
+      icon: Wallet,
     },
     {
-      title: "Projects",
-      url: "#",
+      title: "Catégories",
+      url: ROUTES.DASHBOARD_CATEGORIES,
       icon: Folder,
     },
     {
-      title: "Team",
-      url: "#",
-      icon: Users,
+      title: "Rapports",
+      url: ROUTES.DASHBOARD_REPORTS,
+      icon: BarChart3,
+    },
+    {
+      title: "Paramètres",
+      url: ROUTES.DASHBOARD_SETTINGS,
+      icon: Settings,
     },
   ],
 }
 
 const COMPANY_CONFIG = {
-  name: "Acme Inc.",
+  name: "MoneyTrack",
   logo: Layers,
 } as const
 
@@ -79,7 +85,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
-              <a href="#">
+              <a href={ROUTES.DASHBOARD}>
                 <COMPANY_CONFIG.logo className="!size-5" />
                 <span className="text-base font-semibold">{COMPANY_CONFIG.name}</span>
               </a>

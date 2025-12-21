@@ -11,6 +11,12 @@ const ResetPasswordPage = React.lazy(
   () => import("./pages/auth/resetPassword/page")
 );
 const DashboardPage = React.lazy(() => import("./pages/dashboard/page"));
+const ExpensesPage = React.lazy(() => import("./pages/dashboard/expenses/page"));
+const NewExpensePage = React.lazy(() => import("./pages/dashboard/expenses/new/page"));
+const BudgetsPage = React.lazy(() => import("./pages/dashboard/budgets/page"));
+const CategoriesPage = React.lazy(() => import("./pages/dashboard/categories/page"));
+const ReportsPage = React.lazy(() => import("./pages/dashboard/reports/page"));
+const SettingsPage = React.lazy(() => import("./pages/dashboard/settings/page"));
 import { SectionCards } from "./components/dashboard/section-cards";
 import { Loader } from "lucide-react";
 
@@ -39,7 +45,12 @@ function App() {
               }
             >
               <Route index element={<SectionCards />} />
-              <Route path="count" element={<div>Count Page</div>} />
+              <Route path="expenses" element={<ExpensesPage />} />
+              <Route path="expenses/new" element={<NewExpensePage />} />
+              <Route path="budgets" element={<BudgetsPage />} />
+              <Route path="categories" element={<CategoriesPage />} />
+              <Route path="reports" element={<ReportsPage />} />
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
           </Routes>
         </Suspense>

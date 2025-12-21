@@ -1,6 +1,8 @@
 "use client"
 
 import { Button } from '@/components/ui/button'
+import { Link, useLocation } from 'react-router-dom'
+import { ROUTES } from '@/constants/routes'
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -19,6 +21,14 @@ export function NavMain({
     icon?: React.ComponentType<{ className?: string }>
   }[]
 }) {
+  const location = useLocation()
+  const activeUrl =
+    items
+      .map((i) => i.url)
+      .filter(
+        (url) => location.pathname === url || location.pathname.startsWith(url + "/")
+      )
+      .sort((a, b) => b.length - a.length)[0] ?? ROUTES.DASHBOARD
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
@@ -27,9 +37,12 @@ export function NavMain({
             <SidebarMenuButton
               tooltip="Quick Create"
               className="bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
+              asChild
             >
-              <PlusCircle className="size-5" />
-              <span>Quick Create</span>
+              <Link to={ROUTES.DASHBOARD_EXPENSES_NEW}>
+                <PlusCircle className="size-5" />
+                <span>Quick Create</span>
+              </Link>
             </SidebarMenuButton>
             <Button
               size="icon"
@@ -44,9 +57,11 @@ export function NavMain({
         <SidebarMenu>
           {items.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton tooltip={item.title}>
-                {item.icon && <item.icon />}
-                <span>{item.title}</span>
+              <SidebarMenuButton tooltip={item.title} asChild isActive={activeUrl === item.url}>
+                <Link to={item.url}>
+                  {item.icon && <item.icon />}
+                  <span>{item.title}</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

@@ -5,4 +5,10 @@ export const ROUTES = {
   RESET_PASSWORD: "/reset-password",
   DASHBOARD: "/dashboard",
   DASHBOARD_COUNT: "/dashboard/count",
+  DASHBOARD_EXPENSES: "/dashboard/expenses",
+  DASHBOARD_EXPENSES_NEW: "/dashboard/expenses/new",
+  DASHBOARD_BUDGETS: "/dashboard/budgets",
+  DASHBOARD_CATEGORIES: "/dashboard/categories",
+  DASHBOARD_REPORTS: "/dashboard/reports",
+  DASHBOARD_SETTINGS: "/dashboard/settings",
 } as const
