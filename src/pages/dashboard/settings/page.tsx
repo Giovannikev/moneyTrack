@@ -6,11 +6,6 @@ import { ModeToggle } from "@/components/dark-mode/mode-toggle"
 export default function SettingsPage() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="px-2">
-        <h1 className="text-xl font-semibold">Paramètres</h1>
-        <p className="text-muted-foreground text-sm">Préférences de l’application</p>
-      </div>
-
       <Card>
         <CardHeader>
           <CardTitle>Apparence</CardTitle>

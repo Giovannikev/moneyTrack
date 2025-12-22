@@ -1,6 +1,3 @@
-import { Link } from "react-router-dom"
-import { ROUTES } from "@/constants/routes"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
@@ -16,16 +13,6 @@ const sampleExpenses = [
 export default function ExpensesPage() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between px-2">
-        <div className="space-y-1">
-          <h1 className="text-xl font-semibold">Dépenses</h1>
-          <p className="text-muted-foreground text-sm">Suivez et gérez vos dépenses</p>
-        </div>
-        <Button asChild>
-          <Link to={ROUTES.DASHBOARD_EXPENSES_NEW}>Ajouter une dépense</Link>
-        </Button>
-      </div>
-
       <Card>
         <CardHeader>
           <CardTitle>Filtres</CardTitle>

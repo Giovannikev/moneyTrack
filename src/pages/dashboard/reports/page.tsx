@@ -21,11 +21,6 @@ const config = {
 export default function ReportsPage() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="px-2">
-        <h1 className="text-xl font-semibold">Rapports</h1>
-        <p className="text-muted-foreground text-sm">Visualisez vos dépenses mensuelles</p>
-      </div>
-
       <Card>
         <CardHeader>
           <CardTitle>Dépenses par mois</CardTitle>

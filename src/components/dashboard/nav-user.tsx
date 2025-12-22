@@ -10,6 +10,8 @@ import {
 import { useNavigate } from "react-router-dom"
 import { signOut } from "@/services/auth"
 import { ROUTES } from "@/constants/routes"
+import { useAuth } from "@/hooks/useAuth"
+import { toast } from "sonner"
 
 import {
   Avatar,
@@ -32,26 +34,25 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar'
 
-export function NavUser({
-  user,
-}: {
-  user: {
-    name: string
-    email: string
-    avatar: string
-  }
-}) {
+export function NavUser() {
   const { isMobile } = useSidebar()
   const navigate = useNavigate()
+  const { user } = useAuth()
+
+  const displayName =
+    (user?.user_metadata as Record<string, unknown>)?.full_name as string || user?.email || ""
+  const displayEmail = user?.email || ""
+  const displayAvatar =
+    ((user?.user_metadata as Record<string, unknown>)?.avatar_url as string) || ""
+  const initials = (displayName || displayEmail).slice(0, 2).toUpperCase()
 
   const handleSignOut = async () => {
     try {
       const { error } = await signOut()
       if (error) throw error
       navigate(ROUTES.SIGNIN)
-    } catch (error) {
-      console.error("Error signing out:", error)
-      alert("Erreur lors de la déconnexion.")
+    } catch {
+      toast.error("Erreur lors de la déconnexion")
     }
   }
 
@@ -65,14 +66,12 @@ export function NavUser({
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg grayscale">
-                <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarImage src={displayAvatar} alt={displayName} />
+                <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
-                <span className="text-muted-foreground truncate text-xs">
-                  {user.email}
-                </span>
+                <span className="truncate font-medium">{displayName}</span>
+                <span className="text-muted-foreground truncate text-xs">{displayEmail}</span>
               </div>
               <MoreVertical className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -86,20 +85,18 @@ export function NavUser({
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarImage src={displayAvatar} alt={displayName} />
+                  <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="text-muted-foreground truncate text-xs">
-                    {user.email}
-                  </span>
+                  <span className="truncate font-medium">{displayName}</span>
+                  <span className="text-muted-foreground truncate text-xs">{displayEmail}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate(ROUTES.DASHBOARD_PROFILE)}>
                 <UserCircle className="mr-2 size-4" />
                 Account
               </DropdownMenuItem>

@@ -13,14 +13,6 @@ const sampleBudgets = [
 export default function BudgetsPage() {
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between px-2">
-        <div className="space-y-1">
-          <h1 className="text-xl font-semibold">Budgets</h1>
-          <p className="text-muted-foreground text-sm">Définissez et suivez vos budgets</p>
-        </div>
-        <Button>Ajouter un budget</Button>
-      </div>
-
       <Card>
         <CardHeader>
           <CardTitle>Créer un budget</CardTitle>

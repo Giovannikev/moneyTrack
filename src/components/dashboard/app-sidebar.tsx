@@ -1,7 +1,7 @@
 "use client"
 
 import type * as React from "react"
-import { BarChart3, LayoutDashboard, Folder, Layers, List, Wallet, Settings, type LucideIcon } from "lucide-react"
+import { BarChart3, LayoutDashboard, Folder, Layers, List, Wallet, Settings, User, type LucideIcon } from "lucide-react"
 import { ROUTES } from "@/constants/routes"
 
 import { NavMain } from "@/components/dashboard/nav-main"
@@ -70,6 +70,11 @@ const SIDEBAR_CONFIG: SidebarData = {
       url: ROUTES.DASHBOARD_SETTINGS,
       icon: Settings,
     },
+    {
+      title: "Profil",
+      url: ROUTES.DASHBOARD_PROFILE,
+      icon: User,
+    },
   ],
 }
 
@@ -97,7 +102,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={SIDEBAR_CONFIG.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={SIDEBAR_CONFIG.user} />
+        <NavUser />
       </SidebarFooter>
     </Sidebar>
   )

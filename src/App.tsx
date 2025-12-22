@@ -17,6 +17,7 @@ const BudgetsPage = React.lazy(() => import("./pages/dashboard/budgets/page"));
 const CategoriesPage = React.lazy(() => import("./pages/dashboard/categories/page"));
 const ReportsPage = React.lazy(() => import("./pages/dashboard/reports/page"));
 const SettingsPage = React.lazy(() => import("./pages/dashboard/settings/page"));
+const ProfilePage = React.lazy(() => import("./pages/dashboard/profile/page"));
 import { SectionCards } from "./components/dashboard/section-cards";
 import { Loader } from "lucide-react";
 
@@ -51,6 +52,7 @@ function App() {
               <Route path="categories" element={<CategoriesPage />} />
               <Route path="reports" element={<ReportsPage />} />
               <Route path="settings" element={<SettingsPage />} />
+              <Route path="profile" element={<ProfilePage />} />
             </Route>
           </Routes>
         </Suspense>

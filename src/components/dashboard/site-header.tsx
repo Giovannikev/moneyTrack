@@ -13,6 +13,7 @@ export function SiteHeader() {
     if (pathname.startsWith(ROUTES.DASHBOARD_CATEGORIES)) return 'Catégories'
     if (pathname.startsWith(ROUTES.DASHBOARD_REPORTS)) return 'Rapports'
     if (pathname.startsWith(ROUTES.DASHBOARD_SETTINGS)) return 'Paramètres'
+    if (pathname.startsWith(ROUTES.DASHBOARD_PROFILE)) return 'Profil'
     return 'Dashboard'
   })()
 
@@ -25,7 +26,7 @@ export function SiteHeader() {
           className="mx-2 data-[orientation=vertical]:h-4"
         />
         <h1 className="text-base font-medium">{title}</h1>
-        {pathname.startsWith(ROUTES.DASHBOARD_EXPENSES) && (
+        {pathname === ROUTES.DASHBOARD_EXPENSES && (
           <div className="ml-auto">
             <Button size="sm" asChild>
               <Link to={ROUTES.DASHBOARD_EXPENSES_NEW}>Ajouter</Link>

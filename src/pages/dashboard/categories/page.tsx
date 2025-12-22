@@ -16,11 +16,6 @@ export default function CategoriesPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="px-2">
-        <h1 className="text-xl font-semibold">Catégories</h1>
-        <p className="text-muted-foreground text-sm">Gérez vos catégories de dépense</p>
-      </div>
-
       <Card>
         <CardHeader>
           <CardTitle>Ajouter une catégorie</CardTitle>
